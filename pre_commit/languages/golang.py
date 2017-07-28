@@ -70,6 +70,6 @@ def install_environment(repo_cmd_runner, version, additional_dependencies):
         rmtree(repo_cmd_runner.path(directory, 'pkg'))
 
 
-def run_hook(repo_cmd_runner, hook, file_args):
+def run_hook(repo_cmd_runner, hook, file_args, report_progress):
     with in_env(repo_cmd_runner):
-        return xargs(helpers.to_cmd(hook), file_args)
+        return xargs(helpers.to_cmd(hook), file_args, report_progress)

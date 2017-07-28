@@ -50,6 +50,6 @@ def install_environment(
         ))
 
 
-def run_hook(repo_cmd_runner, hook, file_args):  # pragma: windows no cover
+def run_hook(repo_cmd_runner, hook, file_args, report_progress):  # pragma: windows no cover
     with in_env(repo_cmd_runner):
-        return xargs(helpers.to_cmd(hook), file_args)
+        return xargs(helpers.to_cmd(hook), file_args, report_progress)

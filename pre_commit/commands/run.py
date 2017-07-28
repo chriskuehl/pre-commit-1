@@ -103,17 +103,29 @@ def _run_single_hook(hook, repo, args, skips, cols):
 
     # Print the hook and the dots first in case the hook takes hella long to
     # run.
-    output.write(get_hook_message(
+    msg, num_dots = get_hook_message(
         _hook_msg_start(hook, args.verbose), end_len=6, cols=cols,
-    ))
+    )
+    output.write(msg)
     sys.stdout.flush()
 
     diff_before = cmd_output(
         'git', 'diff', '--no-ext-diff', retcode=None, encoding=None,
     )
+    dots_printed = [0]
+    def report_progress(progress):
+        dots_to_print = int(round(num_dots * progress))
+
+        for _ in range(dots_to_print - dots_printed[0]):
+            sys.stdout.write('.')
+            sys.stdout.flush()
+
+        dots_printed[0] = dots_to_print
+
     retcode, stdout, stderr = repo.run_hook(
         hook,
         tuple(filenames) if hook['pass_filenames'] else (),
+        report_progress,
     )
     diff_after = cmd_output(
         'git', 'diff', '--no-ext-diff', retcode=None, encoding=None,

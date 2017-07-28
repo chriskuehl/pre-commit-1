@@ -14,7 +14,7 @@ def install_environment(repo_cmd_runner, version, additional_dependencies):
     raise AssertionError('Cannot install script repo.')
 
 
-def run_hook(repo_cmd_runner, hook, file_args):
+def run_hook(repo_cmd_runner, hook, file_args, report_progress):
     cmd = helpers.to_cmd(hook)
     cmd = (repo_cmd_runner.prefix_dir + cmd[0],) + cmd[1:]
-    return xargs(cmd, file_args)
+    return xargs(cmd, file_args, report_progress)

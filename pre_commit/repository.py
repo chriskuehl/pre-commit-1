@@ -177,7 +177,7 @@ class Repository(object):
             _install_all(self._venvs, self.repo_config['repo'])
             self.__installed = True
 
-    def run_hook(self, hook, file_args):
+    def run_hook(self, hook, file_args, report_status):
         """Run a hook.
 
         :param dict hook:
@@ -187,7 +187,7 @@ class Repository(object):
         language_name = hook['language']
         deps = hook['additional_dependencies']
         cmd_runner = self._cmd_runner_from_deps(language_name, deps)
-        return languages[language_name].run_hook(cmd_runner, hook, file_args)
+        return languages[language_name].run_hook(cmd_runner, hook, file_args, report_status)
 
 
 class LocalRepository(Repository):

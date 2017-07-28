@@ -14,5 +14,5 @@ def install_environment(repo_cmd_runner, version, additional_dependencies):
     raise AssertionError('Cannot install system repo.')
 
 
-def run_hook(repo_cmd_runner, hook, file_args):
-    return xargs(helpers.to_cmd(hook), file_args)
+def run_hook(repo_cmd_runner, hook, file_args, report_progress):
+    return xargs(helpers.to_cmd(hook), file_args, report_progress)

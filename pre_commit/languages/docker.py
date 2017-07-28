@@ -77,7 +77,7 @@ def install_environment(
         os.mkdir(directory)
 
 
-def run_hook(repo_cmd_runner, hook, file_args):  # pragma: windows no cover
+def run_hook(repo_cmd_runner, hook, file_args, report_progress):  # pragma: windows no cover
     assert_docker_available()
     # Rebuild the docker image in case it has gone missing, as many people do
     # automated cleanup of docker images.
@@ -96,4 +96,4 @@ def run_hook(repo_cmd_runner, hook, file_args):  # pragma: windows no cover
         docker_tag(repo_cmd_runner),
     ) + cmd_rest
 
-    return xargs(cmd, file_args)
+    return xargs(cmd, file_args, report_progress)

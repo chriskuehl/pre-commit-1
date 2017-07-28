@@ -17,10 +17,10 @@ def install_environment(repo_cmd_runner, version, additional_dependencies):
     raise AssertionError('Cannot install pcre repo.')
 
 
-def run_hook(repo_cmd_runner, hook, file_args):
+def run_hook(repo_cmd_runner, hook, file_args, report_progress):
     # For PCRE the entry is the regular expression to match
     cmd = (GREP, '-H', '-n', '-P') + tuple(hook['args']) + (hook['entry'],)
 
     # Grep usually returns 0 for matches, and nonzero for non-matches so we
     # negate it here.
-    return xargs(cmd, file_args, negate=True)
+    return xargs(cmd, file_args, report_progress, negate=True)
